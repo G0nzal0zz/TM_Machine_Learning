@@ -2,3 +2,4 @@
 /States
 *.txt
 /.vscode
+.env
