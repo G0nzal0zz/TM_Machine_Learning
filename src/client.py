@@ -62,6 +62,9 @@ def main():
 
             race_time = state.player_info.race_time
 
+            if race_time == 0:
+                first_state = state
+
             if race_time > 0 and race_time % 1000 == 0:
                 set_input_state(sock, up=True, down=False, steer=random.randint(-65536,65536))
             if (race_time > 2000 and all(int(v) == 0 for v in state.velocity)):
