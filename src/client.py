@@ -66,7 +66,7 @@ def main():
                 set_input_state(sock, up=True, down=False, steer=random.randint(-65536,65536))
             if (race_time > 2000 and all(int(v) == 0 for v in state.velocity)):
                 respond(sock, C_RECOVER_INPUT)
-                rewind_to_state(sock, first_state)
+                #rewind_to_state(sock, first_state) #to do
 
             respond(sock, SC_RUN_STEP_SYNC)
             if time.time() - now > 1:
