@@ -92,8 +92,7 @@ int HandleMessage()
         }
 
         case MessageType::CRecoverInputs: {
-            ExecuteCommand("recover_inputs");
-            log("recover_inputs");
+            ExecuteCommand("recover_inputs last_run.txt");
         }
     }
 
