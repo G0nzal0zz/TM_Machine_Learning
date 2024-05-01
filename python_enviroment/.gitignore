@@ -1,0 +1,12 @@
+# Jupyter Notebook
+.ipynb_checkpoints*
+notebooks/*
+
+# TensorBoard
+graphs
+
+# virtualenv
+.venv
+venv/
+ENV/
+
