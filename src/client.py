@@ -60,6 +60,16 @@ def main():
             state.cp_data.resize(CheckpointData.cp_states_field, state.cp_data.cp_states_length)
             state.cp_data.resize(CheckpointData.cp_times_field, state.cp_data.cp_times_length)
 
+            if time.time() - now > 1:
+                velocity = state.velocity
+                position = state.position
+                # Now 'velocity' contains the velocity as a list [vx, vy, vz]
+                print("Velocity:", velocity)
+                print("Position:", position)
+                print(f'Effective speed: {ticks_per_second / 100}x')
+                now = time.time()
+                ticks_per_second = 0
+
             race_time = state.player_info.race_time
 
             if race_time == 0:
@@ -73,15 +83,6 @@ def main():
                 rewind_to_state(sock, first_state)
 
             respond(sock, SC_RUN_STEP_SYNC)
-            if time.time() - now > 1:
-                velocity = state.velocity
-                position = state.position
-                # Now 'velocity' contains the velocity as a list [vx, vy, vz]
-                print("Velocity:", velocity)
-                print("Position:", position)
-                print(f'Effective speed: {ticks_per_second / 100}x')
-                now = time.time()
-                ticks_per_second = 0
 
             ticks_per_second += 1
 
