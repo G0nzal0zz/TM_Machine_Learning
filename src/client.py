@@ -6,11 +6,13 @@ import time
 
 from tminterface2 import MessageType, TMInterface
 
+PORT = 8477
+
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--tmi_port", "-p", type=int, default=8477)
-    args = parser.parse_args()
-    iface = TMInterface(args.tmi_port)
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--tmi_port", "-p", type=int, default=8477)
+    #  args = parser.parse_args()
+    iface = TMInterface(8477)
     now = time.time()
 
     if not iface.registered:
@@ -32,6 +34,8 @@ def main():
             if time.time() - now > 1:
                 now = time.time()
                 print(iface.get_simulation_state().velocity)
+                if (iface.get_simulation_state().velocity[0] < 0.1 and iface.get_simulation_state().velocity[1] < 0.1 and iface.get_simulation_state().velocity[2] < 0.1):
+                    iface.recover_inputs()
 
             # ============================
             # BEGIN ON RUN STEP

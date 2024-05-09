@@ -25,6 +25,7 @@ enum MessageType {
     CToggleInterface = 21,
     CIsInMenus = 22,
     CGetInputs = 23,
+    CRecoverInputs = 24,
 }
 
 const bool debug = false;
@@ -262,6 +263,12 @@ int HandleMessage()
             break;
         }
 
+        case MessageType::CRecoverInputs: {
+            ExecuteCommand("recover_inputs last_run.txt");
+            log("Recovered inputs");
+            break;
+        }
+
         default: {
             log("Server: got unknown message "+type);
             break;
@@ -323,8 +330,8 @@ void OnQueueProcessed(int fromTime, int toTime, const string&in commandLine, con
 {
     PORT = uint16(GetVariableDouble("custom_port"));
     if (PORT == 0) {
-        log("Port not set, using default port 5000");
-        PORT  = 8081;        
+        log("Port not set, using default port 8477");
+        PORT  = 8477;        
     } else {
         log("Port donadigo" + PORT);
     }

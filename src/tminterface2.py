@@ -34,6 +34,7 @@ class MessageType(IntEnum):
     C_TOGGLE_INTERFACE = auto()
     C_IS_IN_MENUS = auto()
     C_GET_INPUTS = auto()
+    C_RECOVER_INPUTS = auto()
 
 
 class TMInterface:
@@ -138,8 +139,12 @@ class TMInterface:
         string_length = self._read_int32()
         return self.sock.recv(string_length, socket.MSG_WAITALL).decode("utf-8")
 
+    def recover_inputs(self):
+        self.sock.sendall(struct.pack("i", MessageType.C_RECOVER_INPUTS))
+
     def _respond_to_call(self, response_type):
         self.sock.sendall(struct.pack("i", np.int32(response_type)))
 
     def _read_int32(self):
         return struct.unpack("i", self.sock.recv(4, socket.MSG_WAITALL))[0]
+    
